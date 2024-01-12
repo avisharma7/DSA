@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)https://ads.pubmatic.com/AdServer/js/topics/topics_frame.html?bidder=pubmatic -->
+<html lang="en" data-theme="light" style="color-scheme: light;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Topics demo</title>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="origin-trial" content="AseYc2DtZGb//W5XVWgcoP6UF3L+dzpvN5W30ZfyW0aY9GPRVT9CgZXlFz8KHt25ohltfnkuImnAY3JETFGc+AgAAABfeyJvcmlnaW4iOiJodHRwczovL2Fkcy5wdWJtYXRpYy5jb206NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY4ODA4MzE5OX0=">
+  <link href="https://ads.pubmatic.com/AdServer/js/topics/favicon.ico" rel="shortcut icon">
+  <script>
+    async function getTopics() {
+      try {
+        if (
+          "browsingTopics" in document &&
+          document.featurePolicy.allowsFeature("browsing-topics")
+        ) {
+          const topics = await document.browsingTopics();
+          console.log(
+            "Called iframe:",
+            window.location.hostname,
+            topics,
+            "\nNumber of topics: ",
+            topics.length
+          );
+          return Promise.resolve(topics);
+        } else {
+          console.log("document.browsingTopics() not supported");
+        }
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    }
+
+    (async function () {
+      const topics = await getTopics();
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
+      const message = JSON.stringify({
+        segment: {
+          domain: window.location.hostname,
+          topics,
+          bidder: params.get("bidder"),
+        },
+        date: Date.now(),
+      });
+      window.parent.postMessage(message, "*");
+    })();
+
+  </script>
+<link href="./css2" rel="stylesheet"><style>*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}</style></head>
+
+<body class="chakra-ui-light"><div id="coursology-root" style="height: auto;"><template shadowrootmode="closed"><div><span id="__chakra_env" hidden=""></span></div><style data-emotion="coursology-global" data-s=""></style><style data-emotion="coursology-global" data-s=""></style><style data-emotion="coursology-global" data-s=""></style></template></div>
+
+
+<canvas id="coursology-canvas" width="0" height="0" style="position: fixed; top: 0px; left: 0px; z-index: 100; pointer-events: none;"></canvas><div class="chakra-portal"><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-top" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; margin: 0px auto; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px); left: env(safe-area-inset-left, 0px);"></div><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-top-left" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; top: env(safe-area-inset-top, 0px); left: env(safe-area-inset-left, 0px);"></div><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-top-right" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px);"></div><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-bottom-left" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; bottom: env(safe-area-inset-bottom, 0px); left: env(safe-area-inset-left, 0px);"></div><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-bottom" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; margin: 0px auto; bottom: env(safe-area-inset-bottom, 0px); right: env(safe-area-inset-right, 0px); left: env(safe-area-inset-left, 0px);"></div><div role="region" aria-live="polite" aria-label="Notifications" id="chakra-toast-manager-bottom-right" style="position: fixed; z-index: var(--toast-z-index, 5500); pointer-events: none; display: flex; flex-direction: column; bottom: env(safe-area-inset-bottom, 0px); right: env(safe-area-inset-right, 0px);"></div></div></body></html>
